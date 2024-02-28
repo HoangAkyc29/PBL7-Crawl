@@ -1,5 +1,6 @@
 import os
 import time
+import csv
 import re
 import requests
 from datetime import datetime, timedelta
@@ -41,6 +42,22 @@ def get_folder_path(folder_name): # cho folder name, hàm này sẽ lấy ra đ�
     return folder_path
 
 
+def create_1D_csv_file(data):
+    # Tạo tên tệp dựa trên thời gian hiện tại
+    current_time = time.strftime("%Y%m%d_%H%M%S")
+    file_name = f"output_{current_time}.csv"
+
+    # Mở tệp CSV để ghi
+    with open(file_name, 'w', newline='', encoding='utf-8') as csvfile:
+        # Tạo đối tượng ghi CSV
+        csv_writer = csv.writer(csvfile)
+
+        # Ghi dữ liệu vào tệp CSV
+        for item in data:
+            csv_writer.writerow([item])  # Mỗi phần tử trong danh sách sẽ được ghi trên một dòng mới
+
+    print(f"Tạo tệp {file_name} thành công!")
+
 def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver 
     if edgeOptions is None:
         edgeOptions = webdriver.EdgeOptions()
@@ -48,8 +65,8 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
     edgeOptions.add_argument('--enable-chrome-browser-cloud-management')
     # edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
     # edgeOptions.add_argument('--headless')
-    # edgeOptions.add_argument("--test-third-party-cookie-phaseout")
-    # edgeOptions.add_argument('log-level=3')
+    edgeOptions.add_argument("--test-third-party-cookie-phaseout")
+    edgeOptions.add_argument('log-level=3')
     return webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=edgeOptions)
 
 def defaultconnectdriver(proxy_data = None):
