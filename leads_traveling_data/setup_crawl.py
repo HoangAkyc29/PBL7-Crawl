@@ -6,6 +6,7 @@ import requests
 from datetime import datetime, timedelta
 import threading
 import queue
+import random
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -152,5 +153,82 @@ def get_free_proxies(driver):
             proxy_data[headers[i]] = tds[i].text.strip()
         proxies.append(proxy_data)
     
-    return proxies
+    return proxies[:30]
 
+def check_csv(filename='sampleproxies.csv'):
+
+    if not os.path.exists(filename):
+        write_proxies_to_csv()
+        return
+    
+    with open(filename, 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip header row
+        row_count = sum(1 for row in reader)
+
+    if row_count <= 1:
+        write_proxies_to_csv()
+    
+    return
+
+def write_proxies_to_csv(filename='sampleproxies.csv'):
+
+    driver = headlessconnectdriver()
+    proxies = get_free_proxies(driver)
+    file_exists = os.path.exists(filename)
+    with open(filename, 'a', newline='') as csvfile:
+        fieldnames = proxies[0].keys() if proxies else []  # Sử dụng keys của dictionary đầu tiên trong danh sách proxies làm tên cột
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        # Nếu file chưa tồn tại, viết tiêu đề của các cột
+        if not file_exists:
+            writer.writeheader()
+
+        # Viết dữ liệu cho mỗi proxy vào file CSV
+        for proxy in proxies:
+            writer.writerow(proxy)
+
+def get_1_proxy_data(filename='sampleproxies.csv'):
+    # Kiểm tra xem file đã tồn tại hay không
+    if not os.path.exists(filename):
+        print("File not found!")
+        return None
+
+    with open(filename, 'r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        data = list(reader)
+
+    # Lấy dữ liệu của dòng cuối cùng
+    if data:
+        proxy_data = data[-1]
+    else:
+        print("File is empty!")
+        return None
+
+    # Xóa dòng cuối cùng khỏi danh sách
+    data = data[:-1]
+
+    # Ghi lại nội dung mới vào file CSV
+    with open(filename, 'w', newline='') as csvfile:
+        fieldnames = proxy_data.keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        # Viết tiêu đề của các cột
+        writer.writeheader()
+
+        # Viết lại dữ liệu cho mỗi proxy vào file CSV
+        for row in data:
+            writer.writerow(row)
+
+    return proxy_data
+
+# write_proxies_to_csv()
+
+# # Sử dụng hàm get_proxy_data để lấy dữ liệu của dòng cuối cùng từ file CSV
+# proxy_data = get_1_proxy_data()
+# if proxy_data:
+#     print("Proxy data:", proxy_data)
+# else:
+#     print("Failed to get proxy data or file is empty.")
+
+check_csv()
