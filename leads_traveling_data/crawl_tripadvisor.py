@@ -78,14 +78,14 @@ def scrape_tourist_destination_data(url):
     # subfolder = ["tourist_destination_data"]
 
     try:
-        check_csv()
-        driver = defaultconnectdriver(get_1_proxy_data())
+        # check_csv()
+        # driver = defaultconnectdriver(get_1_proxy_data())
+        driver = defaultconnectdriver()
 
         driver.get(url)
         driver.implicitly_wait(10)  # Đợi 5 giây để load trang
-        driver.set_page_load_timeout(20) 
         # Đặt điều kiện chờ (chờ tối đa 5 giây)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 5)
 
         # Đợi cho tất cả các phần tử a có class là "BMQDV _F Gv wSSLS SwZTJ hNpWR" xuất hiện
         # elements = wait.until(
@@ -107,7 +107,9 @@ def scrape_tourist_destination_data(url):
         # driver.quit()
         try:
             # Tìm tất cả các thẻ li có id là "Mkrpq Fg I _u"
-            list_items = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME, "Mkrpq.Fg.I._u")))
+            list_items = driver.find_elements(By.CSS_SELECTOR, 'li.Mkrpq.Fg.I._u')
+
+            print("Số lượng thẻ li được tìm thấy:", len(list_items))
 
             # Duyệt qua từng thẻ li
             for item in list_items:
@@ -130,6 +132,7 @@ def scrape_tourist_destination_data(url):
 
         # Đóng trình duyệt
         driver.quit()
+        print(url_detail)
 
     except Exception as e:
         print(f"Lỗi kết nối driver. {e}")
