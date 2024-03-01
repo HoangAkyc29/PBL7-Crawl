@@ -16,9 +16,9 @@ from selenium.webdriver.remote.command import Command
 from selenium.webdriver.common.keys import Keys
 from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
 
-from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list
+from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file
 
-urls_overview = [
+urls_overview_general = [
     # Miền Bắc
     "https://www.tripadvisor.com/Tourism-g303942-Can_Tho_Mekong_Delta-Vacations.html",
     "https://www.tripadvisor.com/Tourism-g298085-Da_Nang-Vacations.html",
@@ -71,8 +71,6 @@ urls_overview = [
     "https://www.tripadvisor.com/Tourism-g2062551-Tien_Giang_Province_Mekong_Delta-Vacations.html"
 ]
 
-url_detail = []
-
 def scrape_tourist_destination_data(url):
 
     # subfolder = ["tourist_destination_data"]
@@ -83,10 +81,10 @@ def scrape_tourist_destination_data(url):
         driver = defaultconnectdriver()
 
         driver.get(url)
-        driver.implicitly_wait(10)  # Đợi 5 giây để load trang
+        driver.implicitly_wait(10)  # Đợi 10 giây để load trang
         # Đặt điều kiện chờ (chờ tối đa 5 giây)
         wait = WebDriverWait(driver, 5)
-
+        time.sleep(5)
         # Đợi cho tất cả các phần tử a có class là "BMQDV _F Gv wSSLS SwZTJ hNpWR" xuất hiện
         # elements = wait.until(
         #     EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a.BMQDV._F.Gv.wSSLS.SwZTJ.hNpWR"))
@@ -105,38 +103,79 @@ def scrape_tourist_destination_data(url):
         #     print(href)
         
         # driver.quit()
-        try:
-            # Tìm tất cả các thẻ li có id là "Mkrpq Fg I _u"
-            list_items = driver.find_elements(By.CSS_SELECTOR, 'li.Mkrpq.Fg.I._u')
 
-            print("Số lượng thẻ li được tìm thấy:", len(list_items))
+        # urls_destination_detail = []
+        # try:
+        #     # Tìm tất cả các thẻ li có id là "Mkrpq Fg I _u"
+        #     list_items = driver.find_elements(By.CSS_SELECTOR, 'li.Mkrpq.Fg.I._u')
 
-            # Duyệt qua từng thẻ li
-            for item in list_items:
-                try:
-                    # Tìm tất cả các thẻ a trong thẻ li đó
-                    anchor_tags = item.find_elements(By.TAG_NAME, 'a')
+        #     print("Số lượng thẻ li được tìm thấy:", len(list_items))
+
+        #     # Duyệt qua từng thẻ li
+        #     for item in list_items:
+        #         try:
+        #             # Tìm tất cả các thẻ a trong thẻ li đó
+        #             anchor_tags = item.find_elements(By.TAG_NAME, 'a')
                     
-                    # Duyệt qua từng thẻ a và lấy địa chỉ href
-                    for a_tag in anchor_tags:
-                        href = a_tag.get_attribute("href")
-                        if href:
-                            url_detail.append(href)
+        #             # Duyệt qua từng thẻ a và lấy địa chỉ href
+        #             for a_tag in anchor_tags:
+        #                 href = a_tag.get_attribute("href")
+        #                 if href:
+        #                     urls_destination_detail.append(href)
 
-                except Exception as e:
-                    print("Lỗi khi tìm thẻ a:", e)
-                    continue
+        #         except Exception as e:
+        #             print("Lỗi khi tìm thẻ a:", e)
+        #             continue
+
+        # except Exception as e:
+        #     print("Lỗi khi tìm thẻ li:", e)
+
+        # urls_overview = []
+
+        # try:
+        #     # Đợi cho tất cả các thẻ a có class name chứa đúng chuỗi "UikNM _G B- _S _W T c G wSSLS" xuất hiện
+        #     elements = wait.until(
+        #         EC.presence_of_all_elements_located((By.XPATH, '//a[contains(@class, "UikNM") and contains(@class, "_G") and contains(@class, "B-") and contains(@class, "_S") and contains(@class, "_W") and contains(@class, "T") and contains(@class, "c") and contains(@class, "G") and contains(@class, "wSSLS")]'))
+        #     )
+
+        #     for element in elements:
+        #         try:
+        #             href = element.get_attribute("href")
+        #             urls_overview.append(href)
+        #         except Exception as e:
+        #             print("Error while extracting href:", e)
+
+        # except Exception as e:
+        #     print("Lỗi khi tìm đối tượng 'Xem tất cả':", e)
+
+        # # Đóng trình duyệt
+        # driver.quit()
+        # print(urls_destination_detail)
+        # print(urls_overview)
+
+        # save_to_file(urls_destination_detail, "urls_destination_detail")
+        # save_to_file(urls_overview, "urls_overview")
+        
+        all_urls = []
+
+        try:
+            # Lấy tất cả các thẻ a có href
+            elements = WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a[href]')))
+            
+            hrefs = [element.get_attribute("href") for element in elements]
 
         except Exception as e:
-            print("Lỗi khi tìm thẻ li:", e)
-
-        # Đóng trình duyệt
+            print(f"Lỗi tìm các thẻ a. {e}")
+            driver.quit()
+            return None
+        
         driver.quit()
-        print(url_detail)
+        save_to_file(hrefs, "all_urls")
 
     except Exception as e:
         print(f"Lỗi kết nối driver. {e}")
         driver.quit()
         return None
 
-scrape_tourist_destination_data("https://www.tripadvisor.com.vn/Attractions-g293925-Activities-Ho_Chi_Minh_City.html")
+scrape_tourist_destination_data("https://www.tripadvisor.com/Tourism-g6936569-Bac_Lieu_Bac_Lieu_Province_Mekong_Delta-Vacations.html")

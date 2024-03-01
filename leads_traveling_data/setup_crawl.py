@@ -231,4 +231,15 @@ def get_1_proxy_data(filename='sampleproxies.csv'):
 # else:
 #     print("Failed to get proxy data or file is empty.")
 
-check_csv()
+def save_to_file(data, filename):
+    """
+    Lưu trữ dữ liệu vào tệp tin.
+    """
+    # Kiểm tra xem tệp tin đã tồn tại hay chưa
+    file_exists = os.path.exists(filename)
+
+    # Mở tệp tin ở chế độ 'a' để ghi tiếp vào cuối tệp, hoặc 'w' nếu tệp không tồn tại
+    with open(filename, 'a' if file_exists else 'w') as file:
+        # Ghi mỗi mục trong dữ liệu vào tệp tin, mỗi mục trên một dòng
+        for item in data:
+            file.write(item + '\n')
