@@ -75,6 +75,8 @@ def extract_place_text(url):
     try:
         # Cắt bỏ phần đầu của URL
         url = url.replace("https://www.tripadvisor.com/", "")
+        url = url.replace("https://www.tripadvisor.com.vn/", "")
+        url = url.replace("/","---")
 
         # Tìm vị trí kết thúc của phần text cần lấy (lấy từ đầu đến ký tự ".html")
         end_index = url.find(".html")
@@ -198,7 +200,7 @@ def scrape_tourist_destination_data(url):
             for span_element in span_elements:
                 try:
                     text = span_element.text.strip()  # Lấy văn bản của phần tử và loại bỏ khoảng trắng ở đầu và cuối
-                    if text.lower() == "more" or text.lower() == "read more":
+                    if text.lower() == "more" or text.lower() == "read more" or text.lower() == "đọc thêm":
                         span_element.click()
                 except Exception as e:
                     print("Đã xảy ra lỗi khi lấy văn bản từ phần tử span:", e)
@@ -237,4 +239,4 @@ def scrape_tourist_destination_data(url):
         driver.quit()
         return None
 
-scrape_tourist_destination_data("https://www.tripadvisor.com/Hotel_Review-g298085-d17853463-Reviews-G8_Luxury_Hotel_and_Spa_Da_Nang-Da_Nang.html?spAttributionToken=MjMyNjYyMjc")
+scrape_tourist_destination_data("https://www.tripadvisor.com.vn/Attraction_Review-g293923-d1968469-Reviews-Halong_Bay-Halong_Bay_Quang_Ninh_Province.html")
