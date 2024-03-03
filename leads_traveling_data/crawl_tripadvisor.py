@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.command import Command
 from selenium.webdriver.common.keys import Keys
 from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
+from difflib import SequenceMatcher
 
 from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines
 
@@ -71,6 +72,36 @@ urls_overview_general = [
     "https://www.tripadvisor.com/Tourism-g2062551-Tien_Giang_Province_Mekong_Delta-Vacations.html"
 ]
 
+def negate_duplicate_urls(file_path1, file_path2):
+    # Đọc tất cả các URL từ file_path2 và đặt chúng vào một set để loại bỏ các URL trùng lặp
+    urls_set = set()
+    with open(file_path2, 'r', encoding='utf-8') as file2:
+        for line in file2:
+            urls_set.add(line.strip())
+
+    # Mở file_path1 để đọc các URL và ghi lại chỉ các URL không trùng lặp vào file
+    with open(file_path1, 'r', encoding='utf-8') as file1:
+        urls = [line.strip() for line in file1 if line.strip() not in urls_set]
+
+    # Ghi lại các URL không trùng lặp vào file_path1
+    with open(file_path1, 'w', encoding='utf-8') as file1:
+        for url in urls:
+            file1.write(url + '\n')
+
+def find_most_similar_url(url, file_path):
+    max_similarity = 0
+    most_similar_url = None
+    
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            candidate_url = line.strip()
+            similarity = SequenceMatcher(None, url, candidate_url).ratio()
+            if similarity > max_similarity:
+                max_similarity = similarity
+                most_similar_url = candidate_url
+    
+    return most_similar_url
+
 def extract_place_text(url):
     try:
         # Cắt bỏ phần đầu của URL
@@ -89,17 +120,30 @@ def extract_place_text(url):
         print("Đã xảy ra lỗi:", e)
         return None
 
-def scrape_tourist_destination_data(url):
+def scrape_tourist_destination_data(url, retry = False, proxy = None):
 
     # subfolder = ["tourist_destination_data"]
 
     try:
-        # check_csv()
-        # driver = defaultconnectdriver(get_1_proxy_data())
-        driver = defaultconnectdriver()
+        try:
+            if (retry == True):
+                check_csv()
+                driver = defaultconnectdriver(get_1_proxy_data())
+            else:
+                if not proxy:
+                    driver = defaultconnectdriver()
+                else:
+                    driver = defaultconnectdriver(proxy)
 
-        driver.get(url)
-        driver.implicitly_wait(10)  # Đợi 10 giây để load trang
+            driver.get(url)
+            driver.implicitly_wait(20)  # Đợi 10 giây để load trang
+        
+        except Exception as e:
+            print(f"Lỗi kết nối driver. {e}")
+            driver.quit()
+            scrape_tourist_destination_data(url, False, proxy)
+            return
+        
         # Đặt điều kiện chờ (chờ tối đa 5 giây)
         wait = WebDriverWait(driver, 5)
         time.sleep(5)
@@ -175,21 +219,27 @@ def scrape_tourist_destination_data(url):
         # save_to_file(urls_overview, "urls_overview")
         
         all_urls = []
-
+        retry_value = 0
         try:
             # Lấy tất cả các thẻ a có href
             href_elements = WebDriverWait(driver, 10).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a[href]')))
-            
+
             hrefs = [element.get_attribute("href") for element in href_elements]
+
+            if(len(hrefs) <= 10):
+                driver.quit()
+                scrape_tourist_destination_data(url, True, proxy)
+                return
 
         except Exception as e:
             print(f"Lỗi tìm các thẻ a. {e}")
             driver.quit()
-            return None
+            scrape_tourist_destination_data(url, True, proxy)
+            return
         
-        urls_filepath = save_to_file(hrefs, "all_urls")
-        filter_duplicate_lines(urls_filepath)
+        All_urls_filepath = save_to_file(hrefs, "all_urls")
+        filter_duplicate_lines(All_urls_filepath)
 
         try:
             # Chờ đợi tất cả các thẻ <span> xuất hiện trên trang
@@ -210,8 +260,7 @@ def scrape_tourist_destination_data(url):
 
         try:
             # Lấy tất cả các thẻ trên trang web
-            text_elements = WebDriverWait(driver, 30).until(
-    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a, span, div, p, li, h1, h2, h3, h4, h5, h6")))
+            text_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a, span, div, p, li, h1, h2, h3, h4, h5, h6")))
 
             # Danh sách để lưu trữ văn bản từ các thẻ
             text_list = []
@@ -231,8 +280,19 @@ def scrape_tourist_destination_data(url):
         driver.quit()
         place_string = extract_place_text(url)
 
-        file_path = save_to_file(text_list, place_string, "destination_content")
-        filter_duplicate_lines(file_path)
+        try: 
+            destination_content_file_path = save_to_file(text_list, place_string, "destination_content")
+            filter_duplicate_lines(destination_content_file_path)
+
+            used_url = []
+            used_url.append(url)
+            used_urls_file_path = save_to_file(used_url, "used_urls")
+            negate_duplicate_urls(All_urls_filepath, used_urls_file_path)
+            most_related_url = find_most_similar_url(url, All_urls_filepath)
+            scrape_tourist_destination_data(most_related_url, False, proxy)
+
+        except Exception as e:
+            print(f"Lỗi xử lý lưu trữ file. {e}")
 
     except Exception as e:
         print(f"Lỗi kết nối driver. {e}")

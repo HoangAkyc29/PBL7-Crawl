@@ -136,7 +136,7 @@ def connectdriver(i,subfolder_paths, proxy_data = None): #chế độ crawl cho 
 
 # Get free proxies for rotating
 def get_free_proxies(driver):
-    driver.get('https://sslproxies.org')
+    driver.get('https://sslproxies.org/')
 
     table = driver.find_element(By.TAG_NAME, 'table')
     thead = table.find_element(By.TAG_NAME, 'thead').find_elements(By.TAG_NAME, 'th')
@@ -154,7 +154,7 @@ def get_free_proxies(driver):
             proxy_data[headers[i]] = tds[i].text.strip()
         proxies.append(proxy_data)
     
-    return proxies[:30]
+    return proxies[:5]
 
 def check_csv(filename='sampleproxies.csv'):
 
