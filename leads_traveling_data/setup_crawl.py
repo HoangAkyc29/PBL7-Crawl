@@ -18,6 +18,7 @@ from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
 from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+
 def get_path(A, B): #A là tên file, B là thư mục chứa file A có cùng cấp thư mục với file chương trình. Lấy ra đường dẫn file A trong thư mục B.
     # Lấy đường dẫn thực thi của chương trình
     program_path = os.path.dirname(os.path.abspath(__file__))
@@ -64,6 +65,10 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
         edgeOptions = webdriver.EdgeOptions()
         
     edgeOptions.add_argument('--enable-chrome-browser-cloud-management')
+    driver_extension_folder_path = get_folder_path(r"driver_extension")
+    extension_list = get_extension_list(driver_extension_folder_path)
+    for extension in extension_list:
+        edgeOptions.add_extension(extension)
     # edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
     # edgeOptions.add_argument('--headless')
     edgeOptions.add_argument("--test-third-party-cookie-phaseout")
@@ -83,7 +88,7 @@ def defaultconnectdriver(proxy_data = None):
 
 def headlessconnectdriver(proxy_data = None): # sử dụng chế độ headless trong quá trình crawl
     options = webdriver.EdgeOptions()
-    options.add_argument('--headless')
+    options.add_argument('--headless=new')
     options.add_argument('--window-size=1920,1080')  # Use desktop size
 
     if proxy_data:
@@ -124,10 +129,6 @@ def connectdriver(i,subfolder_paths, proxy_data = None): #chế độ crawl cho 
         proxy = f"{proxy_data['IP Address']}:{proxy_data['Port']}"
         options.add_argument(f'--proxy-server={proxy}')
 
-    driver_extension_folder_path = get_folder_path(r"driver_extension")
-    extension_list = get_extension_list(driver_extension_folder_path)
-    for extension in extension_list:
-        options.add_extension(extension)
     # chromeOptions.add_argument("--headless=new")
     driver = create_edgedriver(options)
     driver.maximize_window()
