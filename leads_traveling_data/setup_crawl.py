@@ -231,15 +231,47 @@ def get_1_proxy_data(filename='sampleproxies.csv'):
 # else:
 #     print("Failed to get proxy data or file is empty.")
 
-def save_to_file(data, filename):
+def save_to_file(data, filename, foldername=None):
     """
-    Lưu trữ dữ liệu vào tệp tin.
+    Lưu trữ dữ liệu vào tệp tin và trả về đường dẫn của tệp.
     """
-    # Kiểm tra xem tệp tin đã tồn tại hay chưa
-    file_exists = os.path.exists(filename)
+    # Xác định đường dẫn của tệp tin
+    if foldername:
+        # Kiểm tra và tạo thư mục đích nếu nó không tồn tại
+        if not os.path.exists(foldername):
+            os.makedirs(foldername)
+
+        filepath = os.path.join(foldername, filename)
+    else:
+        filepath = filename
+
+    # Kiểm tra sự tồn tại của tệp tin
+    file_exists = os.path.exists(filepath)
 
     # Mở tệp tin ở chế độ 'a' để ghi tiếp vào cuối tệp, hoặc 'w' nếu tệp không tồn tại
-    with open(filename, 'a' if file_exists else 'w') as file:
+    with open(filepath, 'a' if file_exists else 'w', encoding="utf-8") as file:
         # Ghi mỗi mục trong dữ liệu vào tệp tin, mỗi mục trên một dòng
         for item in data:
             file.write(item + '\n')
+    
+    file_path = os.path.abspath(filepath)
+
+    return file_path
+
+def filter_duplicate_lines(input_file):
+    # Đọc nội dung của file input và lọc các dòng trùng
+    with open(input_file, 'r', encoding="utf-8") as file:
+        lines = file.readlines()
+
+    unique_lines = []
+    seen_lines = set()
+
+    for line in lines:
+        # Kiểm tra xem dòng đã xuất hiện trước đó chưa
+        if line not in seen_lines:
+            unique_lines.append(line)
+            seen_lines.add(line)
+
+    # Ghi nội dung đã lọc vào file output (chính là file input)
+    with open(input_file, 'w', encoding="utf-8") as file:
+        file.writelines(unique_lines)

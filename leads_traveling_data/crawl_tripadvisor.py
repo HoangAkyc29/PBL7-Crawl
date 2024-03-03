@@ -16,7 +16,7 @@ from selenium.webdriver.remote.command import Command
 from selenium.webdriver.common.keys import Keys
 from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
 
-from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file
+from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines
 
 urls_overview_general = [
     # Miền Bắc
@@ -70,6 +70,22 @@ urls_overview_general = [
     "https://www.tripadvisor.com/Tourism-g298084-Tay_Ninh_Tay_Ninh_Province-Vacations.html",
     "https://www.tripadvisor.com/Tourism-g2062551-Tien_Giang_Province_Mekong_Delta-Vacations.html"
 ]
+
+def extract_place_text(url):
+    try:
+        # Cắt bỏ phần đầu của URL
+        url = url.replace("https://www.tripadvisor.com/", "")
+
+        # Tìm vị trí kết thúc của phần text cần lấy (lấy từ đầu đến ký tự ".html")
+        end_index = url.find(".html")
+
+        # Lấy phần text từ URL
+        review_text = url[:end_index]
+
+        return review_text
+    except Exception as e:
+        print("Đã xảy ra lỗi:", e)
+        return None
 
 def scrape_tourist_destination_data(url):
 
@@ -160,22 +176,65 @@ def scrape_tourist_destination_data(url):
 
         try:
             # Lấy tất cả các thẻ a có href
-            elements = WebDriverWait(driver, 10).until(
+            href_elements = WebDriverWait(driver, 10).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a[href]')))
             
-            hrefs = [element.get_attribute("href") for element in elements]
+            hrefs = [element.get_attribute("href") for element in href_elements]
 
         except Exception as e:
             print(f"Lỗi tìm các thẻ a. {e}")
             driver.quit()
             return None
         
+        urls_filepath = save_to_file(hrefs, "all_urls")
+        filter_duplicate_lines(urls_filepath)
+
+        try:
+            # Chờ đợi tất cả các thẻ <span> xuất hiện trên trang
+            span_elements = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span.taLnk.ulBlueLinks")))
+
+            # Lặp qua từng phần tử <span> và kiểm tra nội dung
+            for span_element in span_elements:
+                try:
+                    text = span_element.text.strip()  # Lấy văn bản của phần tử và loại bỏ khoảng trắng ở đầu và cuối
+                    if text.lower() == "more":
+                        span_element.click()
+                except Exception as e:
+                    print("Đã xảy ra lỗi khi lấy văn bản từ phần tử span:", e)
+
+        except Exception as e:
+            print("Đã xảy ra lỗi khi tìm các phần tử span:", e)
+
+        try:
+            # Lấy tất cả các thẻ trên trang web
+            text_elements = WebDriverWait(driver, 30).until(
+    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a, span, div, p, li, h1, h2, h3, h4, h5, h6")))
+
+            # Danh sách để lưu trữ văn bản từ các thẻ
+            text_list = []
+
+            # Lặp qua từng phần tử và lấy văn bản
+            for element in text_elements:
+                try:
+                    text = element.text
+                    if text:
+                        text_list.append(text)
+                except Exception as e:
+                    print("Đã xảy ra lỗi khi lấy văn bản từ phần tử:", e)
+
+        except Exception as e:
+            print("Đã xảy ra lỗi khi tìm các phần tử trên trang web:", e)
+        
         driver.quit()
-        save_to_file(hrefs, "all_urls")
+        place_string = extract_place_text(url)
+
+        file_path = save_to_file(text_list, place_string, "destination_content")
+        filter_duplicate_lines(file_path)
 
     except Exception as e:
         print(f"Lỗi kết nối driver. {e}")
         driver.quit()
         return None
 
-scrape_tourist_destination_data("https://www.tripadvisor.com/Tourism-g6936569-Bac_Lieu_Bac_Lieu_Province_Mekong_Delta-Vacations.html")
+scrape_tourist_destination_data("https://www.tripadvisor.com/Restaurant_Review-g298085-d17423552-Reviews-F29_Golden_Beef_Sky_Bar-Da_Nang.html")
