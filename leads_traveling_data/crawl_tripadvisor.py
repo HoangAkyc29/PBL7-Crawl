@@ -198,7 +198,7 @@ def scrape_tourist_destination_data(url):
             for span_element in span_elements:
                 try:
                     text = span_element.text.strip()  # Lấy văn bản của phần tử và loại bỏ khoảng trắng ở đầu và cuối
-                    if text.lower() == "more":
+                    if text.lower() == "more" or text.lower() == "read more":
                         span_element.click()
                 except Exception as e:
                     print("Đã xảy ra lỗi khi lấy văn bản từ phần tử span:", e)
@@ -237,4 +237,4 @@ def scrape_tourist_destination_data(url):
         driver.quit()
         return None
 
-scrape_tourist_destination_data("https://www.tripadvisor.com/Restaurant_Review-g298085-d17423552-Reviews-F29_Golden_Beef_Sky_Bar-Da_Nang.html")
+scrape_tourist_destination_data("https://www.tripadvisor.com/Hotel_Review-g298085-d17853463-Reviews-G8_Luxury_Hotel_and_Spa_Da_Nang-Da_Nang.html?spAttributionToken=MjMyNjYyMjc")
