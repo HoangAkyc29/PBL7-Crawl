@@ -17,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
 from difflib import SequenceMatcher
 
-from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines
+from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines, is_https_url
 
 urls_overview_general = [
     # Miền Bắc
@@ -96,7 +96,7 @@ def find_most_similar_url(url, file_path):
         for line in file:
             candidate_url = line.strip()
             similarity = SequenceMatcher(None, url, candidate_url).ratio()
-            if similarity > max_similarity:
+            if similarity > max_similarity and similarity < 1:
                 max_similarity = similarity
                 most_similar_url = candidate_url
     
@@ -120,9 +120,12 @@ def extract_place_text(url):
         print("Đã xảy ra lỗi:", e)
         return None
 
-def scrape_tourist_destination_data(url, retry = False, proxy = None):
+def get_first_url(file_path):
+    with open(file_path, 'r') as file:
+        first_line = file.readline().strip()
+        return first_line
 
-    # subfolder = ["tourist_destination_data"]
+def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy = None, retry_times = 0):
 
     try:
         try:
@@ -141,7 +144,8 @@ def scrape_tourist_destination_data(url, retry = False, proxy = None):
         except Exception as e:
             print(f"Lỗi kết nối driver. {e}")
             driver.quit()
-            scrape_tourist_destination_data(url, False, proxy)
+            if (retry_times < 5):
+                scrape_tourist_destination_data(url, url_source_name, False, proxy, retry_times + 1)
             return
         
         # Đặt điều kiện chờ (chờ tối đa 5 giây)
@@ -229,16 +233,18 @@ def scrape_tourist_destination_data(url, retry = False, proxy = None):
 
             if(len(hrefs) <= 10):
                 driver.quit()
-                scrape_tourist_destination_data(url, True, proxy)
+                if (retry_times < 5):
+                    scrape_tourist_destination_data(url, url_source_name, True, proxy, retry_times + 1)
                 return
 
         except Exception as e:
             print(f"Lỗi tìm các thẻ a. {e}")
             driver.quit()
-            scrape_tourist_destination_data(url, True, proxy)
+            if (retry_times < 5):
+                scrape_tourist_destination_data(url, url_source_name, True, proxy, retry_times + 1)
             return
         
-        All_urls_filepath = save_to_file(hrefs, "all_urls")
+        All_urls_filepath = save_to_file(hrefs, url_source_name)
         filter_duplicate_lines(All_urls_filepath)
 
         try:
@@ -286,10 +292,10 @@ def scrape_tourist_destination_data(url, retry = False, proxy = None):
 
             used_url = []
             used_url.append(url)
-            used_urls_file_path = save_to_file(used_url, "used_urls")
+            used_urls_file_path = save_to_file(used_url, "used_urls.txt")
             negate_duplicate_urls(All_urls_filepath, used_urls_file_path)
             most_related_url = find_most_similar_url(url, All_urls_filepath)
-            scrape_tourist_destination_data(most_related_url, False, proxy)
+            scrape_tourist_destination_data(most_related_url, url_source_name, False, proxy)
 
         except Exception as e:
             print(f"Lỗi xử lý lưu trữ file. {e}")
@@ -297,6 +303,21 @@ def scrape_tourist_destination_data(url, retry = False, proxy = None):
     except Exception as e:
         print(f"Lỗi kết nối driver. {e}")
         driver.quit()
-        return None
+        return
 
-scrape_tourist_destination_data("https://www.tripadvisor.com.vn/Attraction_Review-g293923-d1968469-Reviews-Halong_Bay-Halong_Bay_Quang_Ninh_Province.html")
+def crawl_all():
+    threads = []
+    for i in range(1, 5):
+        file_path = f"all_urls_{i}.txt"
+        url = get_first_url(file_path)
+        if url:
+            thread = threading.Thread(target=scrape_tourist_destination_data, args=(url, file_path,))
+            threads.append(thread)
+            thread.start()
+    
+    # Chờ cho tất cả các luồng hoàn thành
+    for thread in threads:
+        thread.join()
+
+# crawl_all()
+scrape_tourist_destination_data("https://www.tripadvisor.com/Hotels-g298085-zff7-Da_Nang-Hotels.html", "all-urls.txt")

@@ -43,6 +43,8 @@ def get_folder_path(folder_name): # cho folder name, hàm này sẽ lấy ra đ�
     folder_path = os.path.join(current_directory, folder_name)
     return folder_path
 
+def is_https_url(url):
+    return url.startswith("https://")
 
 def create_1D_csv_file(data):
     # Tạo tên tệp dựa trên thời gian hiện tại
@@ -69,8 +71,9 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
     extension_list = get_extension_list(driver_extension_folder_path)
     for extension in extension_list:
         edgeOptions.add_extension(extension)
-    # edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
-    # edgeOptions.add_argument('--headless')
+    edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
+    edgeOptions.add_argument('--headless')
+    edgeOptions.add_argument("--incognito")
     edgeOptions.add_argument("--test-third-party-cookie-phaseout")
     edgeOptions.add_argument('log-level=3')
     return webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()), options=edgeOptions)
