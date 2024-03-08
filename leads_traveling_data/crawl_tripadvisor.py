@@ -105,17 +105,8 @@ def find_most_similar_url(url, file_path):
 def extract_place_text(url):
     try:
         # Cắt bỏ phần đầu của URL
-        url = url.replace("https://www.tripadvisor.com/", "")
-        url = url.replace("https://www.tripadvisor.com.vn/", "")
-        url = url.replace("/","---")
-
-        # Tìm vị trí kết thúc của phần text cần lấy (lấy từ đầu đến ký tự ".html")
-        end_index = url.find(".html")
-
-        # Lấy phần text từ URL
-        review_text = url[:end_index]
-
-        return review_text
+        processed_string = re.sub(r'[^\w\s]', '', url)
+        return processed_string
     except Exception as e:
         print("Đã xảy ra lỗi:", e)
         return None
@@ -319,5 +310,5 @@ def crawl_all():
     for thread in threads:
         thread.join()
 
-# crawl_all()
-scrape_tourist_destination_data("https://www.tripadvisor.com/Hotels-g298085-zff7-Da_Nang-Hotels.html", "all-urls.txt")
+crawl_all()
+# scrape_tourist_destination_data("https://www.tripadvisor.com/Hotels-g298085-zff7-Da_Nang-Hotels.html", "all_urls.txt")
