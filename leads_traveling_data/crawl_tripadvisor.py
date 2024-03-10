@@ -130,7 +130,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
                     driver = defaultconnectdriver(proxy)
 
             driver.get(url)
-            driver.implicitly_wait(20)  # Đợi 10 giây để load trang
+            driver.implicitly_wait(10)  # Đợi 10 giây để load trang
         
         except Exception as e:
             print(f"Lỗi kết nối driver. {e}")
@@ -139,85 +139,15 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
                 scrape_tourist_destination_data(url, url_source_name, False, proxy, retry_times + 1)
             return
         
-        # Đặt điều kiện chờ (chờ tối đa 5 giây)
-        wait = WebDriverWait(driver, 5)
+        # Đặt điều kiện chờ (chờ tối đa 7 giây)
+        wait = WebDriverWait(driver, 7)
         time.sleep(5)
-        # Đợi cho tất cả các phần tử a có class là "BMQDV _F Gv wSSLS SwZTJ hNpWR" xuất hiện
-        # elements = wait.until(
-        #     EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a.BMQDV._F.Gv.wSSLS.SwZTJ.hNpWR"))
-        # )
-        
-        # # Lặp qua từng phần tử a và lấy giá trị href của chúng
-        # hrefs = []
-        # for element in elements:
-        #     href = element.get_attribute("href")
-        #     if href:
-        #         hrefs.append(href)
-        
-        # # In tất cả các địa chỉ href đã lấy được
-        # print("Các địa chỉ href:")
-        # for href in hrefs:
-        #     print(href)
-        
-        # driver.quit()
-
-        # urls_destination_detail = []
-        # try:
-        #     # Tìm tất cả các thẻ li có id là "Mkrpq Fg I _u"
-        #     list_items = driver.find_elements(By.CSS_SELECTOR, 'li.Mkrpq.Fg.I._u')
-
-        #     print("Số lượng thẻ li được tìm thấy:", len(list_items))
-
-        #     # Duyệt qua từng thẻ li
-        #     for item in list_items:
-        #         try:
-        #             # Tìm tất cả các thẻ a trong thẻ li đó
-        #             anchor_tags = item.find_elements(By.TAG_NAME, 'a')
-                    
-        #             # Duyệt qua từng thẻ a và lấy địa chỉ href
-        #             for a_tag in anchor_tags:
-        #                 href = a_tag.get_attribute("href")
-        #                 if href:
-        #                     urls_destination_detail.append(href)
-
-        #         except Exception as e:
-        #             print("Lỗi khi tìm thẻ a:", e)
-        #             continue
-
-        # except Exception as e:
-        #     print("Lỗi khi tìm thẻ li:", e)
-
-        # urls_overview = []
-
-        # try:
-        #     # Đợi cho tất cả các thẻ a có class name chứa đúng chuỗi "UikNM _G B- _S _W T c G wSSLS" xuất hiện
-        #     elements = wait.until(
-        #         EC.presence_of_all_elements_located((By.XPATH, '//a[contains(@class, "UikNM") and contains(@class, "_G") and contains(@class, "B-") and contains(@class, "_S") and contains(@class, "_W") and contains(@class, "T") and contains(@class, "c") and contains(@class, "G") and contains(@class, "wSSLS")]'))
-        #     )
-
-        #     for element in elements:
-        #         try:
-        #             href = element.get_attribute("href")
-        #             urls_overview.append(href)
-        #         except Exception as e:
-        #             print("Error while extracting href:", e)
-
-        # except Exception as e:
-        #     print("Lỗi khi tìm đối tượng 'Xem tất cả':", e)
-
-        # # Đóng trình duyệt
-        # driver.quit()
-        # print(urls_destination_detail)
-        # print(urls_overview)
-
-        # save_to_file(urls_destination_detail, "urls_destination_detail")
-        # save_to_file(urls_overview, "urls_overview")
         
         all_urls = []
         retry_value = 0
         try:
             # Lấy tất cả các thẻ a có href
-            href_elements = WebDriverWait(driver, 10).until(
+            href_elements = wait.until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a[href]')))
 
             hrefs = [element.get_attribute("href") for element in href_elements]
@@ -240,7 +170,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
 
         try:
             # Chờ đợi tất cả các thẻ <span> xuất hiện trên trang
-            span_elements = WebDriverWait(driver, 10).until(
+            span_elements = wait.until(
         EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span.taLnk.ulBlueLinks")))
 
             # Lặp qua từng phần tử <span> và kiểm tra nội dung
@@ -298,7 +228,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
 
 def crawl_all():
     threads = []
-    for i in range(1,6):
+    for i in range(1,5):
         file_path = f"all_urls_{i}.txt"
         url = get_first_url(file_path)
         if url:
@@ -310,10 +240,10 @@ def crawl_all():
     for thread in threads:
         thread.join()
 
-spam_trying = 0
-while spam_trying < 15:
+# spam_trying = 0
+while True:
     try:
-        spam_trying += 1
+        # spam_trying += 1
         crawl_all()
     except Exception as e:
         continue

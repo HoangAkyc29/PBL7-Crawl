@@ -157,7 +157,7 @@ def get_free_proxies(driver):
             proxy_data[headers[i]] = tds[i].text.strip()
         proxies.append(proxy_data)
     
-    return proxies[:5]
+    return proxies[:4]
 
 def check_csv(filename='sampleproxies.csv'):
 
