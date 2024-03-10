@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import threading
 from collections import deque
 import queue
-
+import keyboard
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -104,8 +104,8 @@ def find_most_similar_url(url, file_path):
 
 def extract_place_text(url):
     try:
-        # Cắt bỏ phần đầu của URL
-        processed_string = re.sub(r'[^\w\s]', '', url)
+
+        processed_string = re.sub(r'[^\w\s]', '--', url)
         return processed_string
     except Exception as e:
         print("Đã xảy ra lỗi:", e)
@@ -298,7 +298,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
 
 def crawl_all():
     threads = []
-    for i in range(1, 5):
+    for i in range(1,6):
         file_path = f"all_urls_{i}.txt"
         url = get_first_url(file_path)
         if url:
@@ -310,5 +310,11 @@ def crawl_all():
     for thread in threads:
         thread.join()
 
-crawl_all()
+spam_trying = 0
+while spam_trying < 15:
+    try:
+        spam_trying += 1
+        crawl_all()
+    except Exception as e:
+        continue
 # scrape_tourist_destination_data("https://www.tripadvisor.com/Hotels-g298085-zff7-Da_Nang-Hotels.html", "all_urls.txt")
