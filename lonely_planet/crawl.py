@@ -7,7 +7,7 @@ class MySpider(scrapy.Spider):
     name = 'my_spider'
     
     custom_settings = {
-        'CONCURRENT_REQUESTS': 8  # Số lượng luồng
+        'CONCURRENT_REQUESTS': 1  # Số lượng luồng
     }
 
     def start_requests(self):
@@ -55,7 +55,7 @@ class MySpider(scrapy.Spider):
                     # Thêm đoạn văn bản vào danh sách
                     data_list.append(text)
 
-            if len(data_list) < 1 or (not data_list):
+            if len(data_list) < 20 or (not data_list):
                 return
 
             destination_content_file_path = save_to_file(data_list, place_string, "destination_content_folder")
