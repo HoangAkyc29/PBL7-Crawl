@@ -1,21 +1,25 @@
 # scrapy runspider crawl.py
 import scrapy
+from scrapy.http import FormRequest
 import json
 from service import save_to_file, extract_place_text, get_first_url, filter_duplicate_lines, negate_duplicate_urls, find_most_similar_url, fix_urls, get_random_url
 class MySpider(scrapy.Spider):
     name = 'my_spider'
     
     custom_settings = {
-        'CONCURRENT_REQUESTS': 12  # Số lượng luồng
+        'CONCURRENT_REQUESTS': 8  # Số lượng luồng
     }
 
     def start_requests(self):
         # Đọc danh sách liên kết từ output.json
+        retry = 0
         while True:
             try:
+                retry += 1
+                if retry > 10:
+                    break
                 file_path = f"crawling_urls.txt"
                 url = get_random_url(file_path)
-
                 yield scrapy.Request(url=url, callback=self.parse)
 
             except Exception as e:
@@ -52,7 +56,7 @@ class MySpider(scrapy.Spider):
                     data_list.append(text)
 
             if len(data_list) < 1 or (not data_list):
-                yield scrapy.Request(url=url, callback=self.parse, meta={'previous_url': url})
+                return
 
             destination_content_file_path = save_to_file(data_list, place_string, "destination_content_folder")
             filter_duplicate_lines(destination_content_file_path)
@@ -72,3 +76,4 @@ class MySpider(scrapy.Spider):
             next_url = get_random_url(f"crawling_urls.txt")
         
         yield scrapy.Request(url=next_url, callback=self.parse, meta={'previous_url': url})
+        return
