@@ -272,7 +272,7 @@ def filter_duplicate_lines(input_file):
 
     for line in lines:
         # Kiểm tra xem dòng đã xuất hiện trước đó chưa
-        if line not in seen_lines:
+        if line not in seen_lines and line.startswith("https://www.lonelyplanet.com") and "vietnam" in line:
             unique_lines.append(line)
             seen_lines.add(line)
 
@@ -325,6 +325,15 @@ def get_first_url(file_path):
         first_line = file.readline().strip()
         return first_line
 
+def get_random_url(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+        if lines:
+            random_line = random.choice(lines).strip()
+            return random_line
+        else:
+            return None
+
 def fix_urls(file_path, domain):
     fixed_urls = []
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -341,3 +350,4 @@ def fix_urls(file_path, domain):
             file.write(line + '\n')
 
 # fix_urls("E:\PBL-7\lonely_planet\crawling_urls.txt", "https://www.lonelyplanet.com")
+# filter_duplicate_lines("E:\PBL-7\lonely_planet\crawling_urls.txt")
