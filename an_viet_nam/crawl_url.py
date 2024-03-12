@@ -1,3 +1,5 @@
+# scrapy runspider crawl_url.py -o output.json  
+
 import scrapy
 
 class MySpider(scrapy.Spider):
