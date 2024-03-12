@@ -1,3 +1,4 @@
+import json
 import os
 import time
 import csv
@@ -256,13 +257,89 @@ def save_to_file(data, filename, foldername=None):
     with open(filepath, 'a' if file_exists else 'w', encoding="utf-8") as file:
         # Ghi mỗi mục trong dữ liệu vào tệp tin, mỗi mục trên một dòng
         for item in data:
-            file.write(item + '\n')
-    
+            try:
+                item = str(item)
+                file.write(item + '\n')
+            except Exception as e:
+                continue
+
     file_path = os.path.abspath(filepath)
 
     return file_path
 
+def save_to_json(data, filename, foldername=None):
+    """
+    Lưu trữ dữ liệu vào file JSON và trả về đường dẫn của file.
+    """
+    # Xác định đường dẫn của file
+    if foldername:
+        # Kiểm tra và tạo thư mục đích nếu nó không tồn tại
+        if not os.path.exists(foldername):
+            os.makedirs(foldername)
+
+        filepath = os.path.join(foldername, filename)
+    else:
+        filepath = filename
+    
+    # print(data)
+    # Mở file JSON để ghi
+    with open(filepath, 'w') as file:
+        # Ghi dữ liệu vào file JSON
+        json.dump(data, file, ensure_ascii=False, indent=4)
+        file.close()
+    # Trả về đường dẫn của file
+    return os.path.abspath(filepath)
+
+def save_to_csv(data_list, filename, foldername=None):
+    """
+    Lưu trữ dữ liệu vào file CSV và trả về đường dẫn của file.
+    """
+    # Xác định đường dẫn của file
+    if foldername:
+        # Kiểm tra và tạo thư mục đích nếu nó không tồn tại
+        if not os.path.exists(foldername):
+            os.makedirs(foldername)
+
+        filepath = os.path.join(foldername, filename)
+    else:
+        filepath = filename
+
+    # Mở file CSV để ghi
+    with open(filepath, 'w', newline='', encoding="utf-8") as file:
+        csv_writer = csv.writer(file)
+        
+        # Ghi dữ liệu vào file CSV
+        for item in data_list:
+            csv_writer.writerow([item])
+    
+    # Trả về đường dẫn của file
+    return os.path.abspath(filepath)
+
+def is_file_empty(file_path):
+    """
+    Kiểm tra xem file có dữ liệu hay không.
+    """
+    return os.path.exists(file_path) and os.path.getsize(file_path) > 0
+
 def filter_duplicate_lines(input_file):
+    # Đọc nội dung của file input và lọc các dòng trùng
+    with open(input_file, 'r', encoding="utf-8") as file:
+        lines = file.readlines()
+
+    unique_lines = []
+    seen_lines = set()
+
+    for line in lines:
+        # Kiểm tra xem dòng đã xuất hiện trước đó chưa
+        if line not in seen_lines:
+            unique_lines.append(line)
+            seen_lines.add(line)
+
+    # Ghi nội dung đã lọc vào file output (chính là file input)
+    with open(input_file, 'w', encoding="utf-8") as file:
+        file.writelines(unique_lines)
+
+def filter_duplicate_urls(input_file):
     # Đọc nội dung của file input và lọc các dòng trùng
     with open(input_file, 'r', encoding="utf-8") as file:
         lines = file.readlines()
@@ -314,7 +391,7 @@ def extract_place_text(url):
     try:
 
         processed_string = re.sub(r'[^\w\s]', '--', url)
-        processed_string += '.txt'
+        # processed_string += '.txt'
         return processed_string
     except Exception as e:
         print("Đã xảy ra lỗi:", e)

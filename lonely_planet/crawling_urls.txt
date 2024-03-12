@@ -1454,14 +1454,12 @@ https://www.lonelyplanet.com/vietnam/quy-nhon/hotels/kim-house/a/poi-sle/1633781
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/attractions/imperial-enclosure/a/poi-sig/1154381/357875
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/cat-ba-island/restaurants/yummy-2/a/poi-eat/1585636/357919
 https://www.lonelyplanet.com/vietnam/mekong-delta/chau-doc
-https://www.lonelyplanet.com/articles/best-road-trips-in-vietnam
 https://www.lonelyplanet.com/vietnam/south-central-coast/quang-ngai/nightlife
 https://www.lonelyplanet.com/articles/getting-around-vietnam
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/shopping
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/cat-ba-island/hotels/cat-ba-eco-lodge/a/poi-sle/1388059/357919
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/haiphong
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/attractions/nam-giao-esplanade/a/poi-sig/1154421/357875
-https://www.lonelyplanet.com/articles/best-hikes-in-vietnam
 https://www.lonelyplanet.com/vietnam/central-vietnam/my-son/attractions/other-groups/a/poi-sig/1466755/357877
 https://www.lonelyplanet.com/vietnam/mekong-delta/ha-tien/hotels/river-hotel/a/poi-sle/1444620/357892
 https://www.lonelyplanet.com/vietnam/nui-son-tra/hotels/son-tra-resort-spa/a/poi-sle/1451184/1336568
@@ -1478,7 +1476,6 @@ https://www.lonelyplanet.com/vietnam/mekong-delta/long-xuyen/hotels/hotel-hoa-bi
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/cat-ba-island/hotels/cat-ba-beach-resort/a/poi-sle/1448694/357919
 https://www.lonelyplanet.com/vietnam/around-nha-trang/hotels/mia-resort-nha-trang/a/poi-sle/1440349/1342937
 https://www.lonelyplanet.com/vietnam/central-vietnam/my-son/attractions/my-son/a/poi-sig/1068154/357877
-https://www.lonelyplanet.com/articles/best-beaches-vietnam
 https://www.lonelyplanet.com/vietnam/south-central-coast/quang-ngai/hotels
 https://www.lonelyplanet.com/vietnam/south-central-vietnam/shopping
 https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/museum-of-trading-ceramics/a/poi-sig/1158055/357874
@@ -1512,7 +1509,6 @@ https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/quan-con
 https://www.lonelyplanet.com/vietnam/northern-vietnam/restaurants?page=2
 https://www.lonelyplanet.com/vietnam/quy-nhon/hotels/hoang-yen-hotel/a/poi-sle/1156998/1303844
 https://www.lonelyplanet.com/vietnam/central-highlands/kon-tum/nightlife/indochine-coffee/a/poi-dri/1433592/357862
-https://www.lonelyplanet.com/articles/best-places-to-visit-in-vietnam
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/cat-ba-island/restaurants/phuong-nhung/a/poi-eat/1388098/357919
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/attractions/purple-forbidden-city/a/poi-sig/442786/357875
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/halong-bay/hotels
@@ -1838,8 +1834,6 @@ https://www.lonelyplanet.com/vietnam/hanoi/tam-dao-hill-station/hotels/nha-khach
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/vung-tau/attractions
 https://www.lonelyplanet.com/vietnam/hanoi/entertainment/vietnam-national-tuong-theatre/a/poi-ent/1388417/357880
 https://www.lonelyplanet.com/vietnam/mekong-delta/restaurants
-https://www.lonelyplanet.com/articles/vietnam-on-a-budget
-https://www.lonelyplanet.com/articles/vietnam-with-kids
 https://www.lonelyplanet.com/vietnam/meo-vac/entertainment
 https://www.lonelyplanet.com/vietnam/northwest-vietnam/sapa/entertainment
 https://www.lonelyplanet.com/vietnam/central-vietnam/danang/nightlife/bamboo-2-bar/a/poi-dri/1154449/357869
@@ -1849,7 +1843,6 @@ https://www.lonelyplanet.com/vietnam/central-vietnam/ba-na-hill-station/shopping
 https://www.lonelyplanet.com/vietnam/cham-islands/nightlife
 https://www.lonelyplanet.com/vietnam/danang-region/restaurants
 https://www.lonelyplanet.com/vietnam/hanoi/tam-dao-hill-station/hotels/huong-lien-hotel/a/poi-sle/1388946/357882
-https://www.lonelyplanet.com/articles/vietnam-with-elsewhere
 https://www.lonelyplanet.com/vietnam/mekong-delta/restaurants?page=1
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/vung-tau/restaurants
 https://www.lonelyplanet.com/vietnam/northern-vietnam/entertainment
@@ -1862,7 +1855,6 @@ https://www.lonelyplanet.com/vietnam/ho-tram-beach/restaurants/ho-tram-bbq-resta
 https://www.lonelyplanet.com/vietnam/central-highlands/buon-ma-thuot/attractions
 https://www.lonelyplanet.com/vietnam/dalat/hotels
 https://www.lonelyplanet.com/vietnam/dalat/restaurants
-https://www.lonelyplanet.com/articles/vietnam-tips-a-first-timers-guide
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/bai-tu-long-bay/entertainment
 https://www.lonelyplanet.com/vietnam/mekong-delta/restaurants?page=2
 https://www.lonelyplanet.com/vietnam/ninh-binh-province/hotels
@@ -1973,7 +1965,6 @@ https://www.lonelyplanet.com/vietnam/cua-dai-beach/attractions
 https://www.lonelyplanet.com/vietnam/danang-region/articles
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/cuc-phuong-national-park/hotels
 https://www.lonelyplanet.com/vietnam/southeast-coast/restaurants
-https://www.lonelyplanet.com/articles/vietnams-unique-edible-delights
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/con-dao-islands/entertainment
 https://www.lonelyplanet.com/vietnam/central-vietnam/lang-co-beach/entertainment
 https://www.lonelyplanet.com/vietnam/mekong-delta/ben-tre/entertainment
@@ -1987,7 +1978,6 @@ https://www.lonelyplanet.com/vietnam/around-nha-trang/entertainment
 https://www.lonelyplanet.com/vietnam/south-central-coast/mui-ne-beach/attractions
 https://www.lonelyplanet.com/vietnam/an-bang-beach
 https://www.lonelyplanet.com/vietnam/cua-dai-beach/restaurants
-https://www.lonelyplanet.com/articles/vietnam-best-natural-wonders
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/phong-nha-cave/attractions
 https://www.lonelyplanet.com/vietnam/ninh-van-bay/attractions
 https://www.lonelyplanet.com/vietnam/central-vietnam/demilitarised-zone-dmz/restaurants
@@ -1999,7 +1989,6 @@ https://www.lonelyplanet.com/vietnam/southeast-coast/restaurants?page=1
 https://www.lonelyplanet.com/vietnam/an-bang-beach/hotels
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/cuc-phuong-national-park/shopping
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/phong-nha-cave/restaurants
-https://www.lonelyplanet.com/articles/a-guide-to-vietnamese-coffee
 https://www.lonelyplanet.com/vietnam/ninh-van-bay/restaurants
 https://www.lonelyplanet.com/vietnam/northwest-vietnam/bac-ha/shopping
 https://www.lonelyplanet.com/vietnam/central-vietnam/demilitarised-zone-dmz
@@ -2114,7 +2103,6 @@ https://www.lonelyplanet.com/vietnam/central-vietnam/ba-na-hill-station
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/attractions
 https://www.lonelyplanet.com/news/aerial-tramway-halong-bay-vietnam
 https://www.lonelyplanet.com/vietnam/south-central-coast/quang-ngai
-https://www.lonelyplanet.com/articles/vietnamese-cooking-what-to-expect-when-you-take-a-course
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/national-museum-of-vietnamese-history/a/poi-sig/1387781/357880
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/tay-ninh/attractions/cao-dai-holy-see/a/poi-sig/1390404/357857
 https://www.lonelyplanet.com/vietnam/around-ho-chi-minh-city/tay-ninh/attractions/nui-ba-den/a/poi-sig/1157437/357857
@@ -2187,10 +2175,7 @@ https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/ong-bon-pagoda
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/quan-am-pagoda/a/poi-sig/403174/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/giac-lam-pagoda/a/poi-sig/403142/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/xa-loi-pagoda/a/poi-sig/403450/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/tam-son-hoi-quan-pagoda/a/poi-sig/403416/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/nghia-an-hoi-quan-pagoda/a/poi-sig/403368/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/phuoc-an-hoi-quan-pagoda/a/poi-sig/403390/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/ha-chuong-hoi-quan-pagoda/a/poi-sig/1155297/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/phung-son-pagoda/a/poi-sig/1155303/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/giac-vien-pagoda/a/poi-sig/1155301/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/attractions/thien-hau-pagoda/a/poi-sig/1155292/357884
@@ -2232,7 +2217,6 @@ https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/bep-me-in/a/po
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/jake-s-bbq/a/poi-eat/1573146/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/pizza-4p-s/a/poi-eat/1573143/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/pizza-4p-s/a/poi-eat/1431613/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/tib/a/poi-eat/1389682/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/deck/a/poi-eat/1389769/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/el-gaucho/a/poi-eat/1389566/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/cuc-gach-quan/a/poi-eat/1389646/357884
@@ -2242,17 +2226,10 @@ https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/oc-dao-2/a/poi
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/oc-po/a/poi-eat/1633918/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/towa/a/poi-eat/1633915/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/sky-28/a/poi-eat/1633916/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/au-parc/a/poi-eat/1389581/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/maria/a/poi-eat/1389950/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/rico-taco/a/poi-eat/1432815/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/pho-hoa/a/poi-eat/403384/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/le-jardin/a/poi-eat/403338/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/chay-garden/a/poi-eat/1634083/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/cafe-marcel/a/poi-eat/1634081/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/quince/a/poi-eat/1634080/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/l-usine/a/poi-eat/1389840/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/refinery/a/poi-eat/1389841/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/chi-s-cafe/a/poi-eat/1078043/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/3t-quan-nuong/a/poi-eat/1078029/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/huong-lai/a/poi-eat/1088898/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/an-lac-chay/a/poi-eat/1528900/357884
@@ -2551,7 +2528,6 @@ https://www.lonelyplanet.com/vietnam/northern-vietnam/restaurants
 https://www.lonelyplanet.com/vietnam/hanoi/restaurants/quan-an-ngon/a/poi-eat/1446943/357880
 https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/assembly-hall-of-the-chaozhou-chinese-congregation/a/poi-sig/1154469/357874
 https://www.lonelyplanet.com/vietnam/an-bang-beach/hotels/hoi-an-beach-bungalows/a/poi-sle/1518604/1325897
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/pho-quynh/a/poi-eat/1078026/357884
 https://www.lonelyplanet.com/vietnam/hanoi/entertainment/hanoi-opera-house/a/poi-ent/1527417/357880
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/restaurants/madam-thu/a/poi-eat/1633984/357875
 https://www.lonelyplanet.com/vietnam/mekong-delta/ben-tre/hotels/oasis-hotel/a/poi-sle/1450895/357887
@@ -2563,7 +2539,6 @@ https://www.lonelyplanet.com/vietnam/central-vietnam/hue/restaurants/nina-s-cafe
 https://www.lonelyplanet.com/vietnam/an-bang-beach/hotels/hoi-an-beach-rentals/a/poi-sle/1518605/1325897
 https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/assembly-hall-of-the-cantonese-chinese-congregation/a/poi-sig/1154468/357874
 https://www.lonelyplanet.com/vietnam/hanoi/entertainment/hanoi-rock-city/a/poi-ent/1388418/357880
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/pho-hung/a/poi-eat/1078027/357884
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/hotels/myst/a/poi-sle/1573142/357884
 https://www.lonelyplanet.com/vietnam/northeast-vietnam/restaurants
 https://www.lonelyplanet.com/vietnam/mekong-delta/can-tho/hotels/xoai-hotel/a/poi-sle/1456336/357889
@@ -2577,7 +2552,6 @@ https://www.lonelyplanet.com/vietnam/northwest-vietnam/sapa/restaurants
 https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/assembly-hall-of-the-fujian-chinese-congregation/a/poi-sig/1154467/357874
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/hotels/myhotel/a/poi-sle/1553502/357884
 https://www.lonelyplanet.com/vietnam/mekong-delta/can-tho/hotels/kim-lan-hotel/a/poi-sle/1157732/357889
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/hoa-tuc/a/poi-eat/1078030/357884
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/phong-nha-cave
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/restaurants/ta-ke/a/poi-eat/1389517/357875
 https://www.lonelyplanet.com/vietnam/an-bang-beach/hotels/an-bang-seaside-village-homestay/a/poi-sle/1452078/1325897
@@ -2587,19 +2561,16 @@ https://www.lonelyplanet.com/vietnam/mekong-delta/can-tho/hotels/kim-tho-hotel/a
 https://www.lonelyplanet.com/vietnam/central-vietnam/hoi-an/attractions/assembly-hall-of-the-hainan-chinese-congregation/a/poi-sig/442864/357874
 https://www.lonelyplanet.com/vietnam/northwest-vietnam/bac-ha/restaurants
 https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/hotels/may-hotel/a/poi-sle/1431547/357884
-https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/coriander/a/poi-eat/1078031/357884
 https://www.lonelyplanet.com/vietnam/hanoi/entertainment/binh-minh-jazz-club/a/poi-ent/1388420/357880
 https://www.lonelyplanet.com/vietnam/hanoi/restaurants/mien-xao-luon/a/poi-eat/1389030/357880
 https://www.lonelyplanet.com/vietnam/an-bang-beach/hotels/beachside-boutique-resort/a/poi-sle/1590950/1325897
 https://www.lonelyplanet.com/vietnam/central-vietnam/hue/restaurants/com-hen/a/poi-eat/1516755/357875
 https://www.lonelyplanet.com/vietnam/north-central-vietnam/phong-nha-cave/shopping
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/west-lake/a/poi-sig/1387899/357880
-https://www.lonelyplanet.com/vietnam/ninh-van-bay/hotels/ninhvana/a/poi-sle/1583794/1325787
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/hoan-kiem-lake/a/poi-sig/1387763/357880
-https://www.lonelyplanet.com/vietnam/ninh-van-bay/hotels/six-senses-ninh-van-bay/a/poi-sle/1389507/1325787
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/ngo-cam-chi/a/poi-sig/1633839/357880
-https://www.lonelyplanet.com/vietnam/ninh-van-bay/hotels/l-alyana-villas-ninh-van-bay/a/poi-sle/1527818/1325787
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/p-truc-bach/a/poi-sig/1633841/357880
 https://www.lonelyplanet.com/vietnam/south-central-coast/nha-trang/restaurants/andao/a/poi-eat/1634283/357943
 https://www.lonelyplanet.com/vietnam/hanoi/attractions/truc-bach-lake/a/poi-sig/1141866/357880
 https://www.lonelyplanet.com/vietnam/south-central-coast/nha-trang/restaurants/au-lac/a/poi-eat/442648/357943
+https://www.lonelyplanet.com/vietnam/central-vietnam/hotels/

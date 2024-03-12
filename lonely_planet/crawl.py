@@ -2,7 +2,7 @@
 import scrapy
 from scrapy.http import FormRequest
 import json
-from service import save_to_file, extract_place_text, get_first_url, filter_duplicate_lines, negate_duplicate_urls, find_most_similar_url, fix_urls, get_random_url
+from service import save_to_file, extract_place_text, get_first_url, filter_duplicate_lines, negate_duplicate_urls, find_most_similar_url, fix_urls, get_random_url, filter_duplicate_urls
 class MySpider(scrapy.Spider):
     name = 'my_spider'
     
@@ -28,6 +28,7 @@ class MySpider(scrapy.Spider):
     def parse(self, response):
 
         domain = "https://www.lonelyplanet.com"
+        most_related_url = None
         try:
             url = response.url
             href_list = []
@@ -43,8 +44,8 @@ class MySpider(scrapy.Spider):
             
             urls_file_path = save_to_file(href_list, "crawling_urls.txt")
             fix_urls("crawling_urls.txt", domain)
-            place_string = extract_place_text(url)
-            filter_duplicate_lines(urls_file_path)
+            place_string = extract_place_text(url) + '.txt'
+            filter_duplicate_urls(urls_file_path)
 
             data_list = []
             # Lặp qua các phần tử p trong thẻ article
@@ -55,9 +56,9 @@ class MySpider(scrapy.Spider):
                     # Thêm đoạn văn bản vào danh sách
                     data_list.append(text)
 
-            if len(data_list) < 20 or (not data_list):
-                return
-
+            # if len(data_list) < 20 or (not data_list):
+            #     return
+            
             destination_content_file_path = save_to_file(data_list, place_string, "destination_content_folder")
             filter_duplicate_lines(destination_content_file_path)
             
