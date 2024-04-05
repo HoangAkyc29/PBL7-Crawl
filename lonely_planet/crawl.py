@@ -50,7 +50,7 @@ class MySpider(scrapy.Spider):
             data_list = []
             # Lặp qua các phần tử p trong thẻ article
             for element in response.css('a, span, div, p, li, h1, h2, h3, h4, h5, h6'):
-                text = element.xpath('string()').get().strip()
+                text = element.xpath('string()').get()
                 # Kiểm tra nếu đoạn văn bản không chứa chuỗi cụ thể
                 if text:
                     # Thêm đoạn văn bản vào danh sách

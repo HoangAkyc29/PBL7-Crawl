@@ -17,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 from unidecode import unidecode  # Để loại bỏ dấu tiếng Việt
 from difflib import SequenceMatcher
 
-from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines, is_https_url
+from setup_crawl import check_csv, get_1_proxy_data, connectdriver, headlessconnectdriver, defaultconnectdriver, get_extension_list, save_to_file, filter_duplicate_lines, is_https_url, delete_unneed_lines
 
 def negate_duplicate_urls(file_path1, file_path2):
     # Đọc tất cả các URL từ file_path2 và đặt chúng vào một set để loại bỏ các URL trùng lặp
@@ -161,6 +161,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
             used_url = []
             used_url.append(url)
             used_urls_file_path = save_to_file(used_url, "used_urls.txt")
+            
             negate_duplicate_urls(All_urls_filepath, used_urls_file_path)
             most_related_url = find_most_similar_url(url, All_urls_filepath)
             scrape_tourist_destination_data(most_related_url, url_source_name, False, proxy)
@@ -177,6 +178,7 @@ def crawl_all():
     threads = []
     for i in range(1,5):
         file_path = f"all_urls_{i}.txt"
+        delete_unneed_lines(file_path)
         url = get_first_url(file_path)
         if url:
             thread = threading.Thread(target=scrape_tourist_destination_data, args=(url, file_path,))

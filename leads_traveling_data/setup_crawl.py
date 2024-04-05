@@ -72,7 +72,7 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
     for extension in extension_list:
         edgeOptions.add_extension(extension)
     edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
-    edgeOptions.add_argument('--headless')
+    # edgeOptions.add_argument('--headless')
     edgeOptions.add_argument("--incognito")
     edgeOptions.add_argument("--test-third-party-cookie-phaseout")
     edgeOptions.add_argument('log-level=3')
@@ -279,3 +279,14 @@ def filter_duplicate_lines(input_file):
     # Ghi nội dung đã lọc vào file output (chính là file input)
     with open(input_file, 'w', encoding="utf-8") as file:
         file.writelines(unique_lines)
+
+def delete_unneed_lines(input_file):
+    # Đọc nội dung của file input và lọc các dòng không chứa từ "review"
+    with open(input_file, 'r', encoding="utf-8") as file:
+        lines = file.readlines()
+
+    filtered_lines = [line for line in lines if 'review' in line.lower()]
+
+    # Ghi lại các dòng đã lọc vào file mới
+    with open(input_file, 'w', encoding="utf-8") as file:
+        file.writelines(filtered_lines)
