@@ -72,7 +72,7 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
     for extension in extension_list:
         edgeOptions.add_extension(extension)
     edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
-    # edgeOptions.add_argument('--headless')
+    edgeOptions.add_argument('--headless')
     edgeOptions.add_argument("--incognito")
     edgeOptions.add_argument("--test-third-party-cookie-phaseout")
     edgeOptions.add_argument('log-level=3')
