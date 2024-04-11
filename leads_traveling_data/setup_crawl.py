@@ -72,7 +72,7 @@ def create_edgedriver(edgeOptions=None): #khởi tạo Edge_Driver
     for extension in extension_list:
         edgeOptions.add_extension(extension)
     edgeOptions.add_argument('--window-size=1920,1080')  # Use desktop size
-    edgeOptions.add_argument('--headless')
+    # edgeOptions.add_argument('--headless')
     edgeOptions.add_argument("--incognito")
     edgeOptions.add_argument("--test-third-party-cookie-phaseout")
     edgeOptions.add_argument('log-level=3')
@@ -272,7 +272,7 @@ def filter_duplicate_lines(input_file):
 
     for line in lines:
         # Kiểm tra xem dòng đã xuất hiện trước đó chưa
-        if line not in seen_lines:
+        if line not in seen_lines and len(line) >= 75:
             unique_lines.append(line)
             seen_lines.add(line)
 

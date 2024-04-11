@@ -25,7 +25,7 @@ def extract_column_data(csv_path, column_index):
     return column_data
 
 # Thay đổi 'file.csv' thành đường dẫn của file CSV thực tế của bạn
-csv_file = r"E:\PBL-7\GPT-crawler\raw_data.csv"
+csv_file = r"E:\PBL-7\GPT-crawler\raw_data_copy.csv"
 column_index = 1  # Cột thứ hai (0-indexed)
 
 data_list = extract_column_data(csv_file, column_index)
@@ -36,11 +36,11 @@ data_list = extract_column_data(csv_file, column_index)
 opt =  webdriver.ChromeOptions()
 opt.add_experimental_option("debuggerAddress","localhost:8989")
 driver = webdriver.Chrome(options = opt)
-driver.get("https://chat.openai.com/c/b03d1c39-ac87-4da1-a1ed-25784daaac96")
-time.sleep(60)
-evaluate_text = "rất chuẩn, tốt lắm. "
+driver.get("https://chat.openai.com/c/a3154972-ec02-4faa-915d-1edfb8405e34")
+time.sleep(50)
+evaluate_text = "cũng tạm ổn, ok. "
 
-prompt_text = "Tôi sẽ cung cấp lại ví dụ sau: #Làng nổi Tân Lập nằm sâu bên trong lòng Đồng Tháp Mười, nơi chủ yếu là vùng rừng ngập nước với hệ sinh thái mang đậm vẻ đặc trưng của Đông Nam Bộ. Tràm, sen, súng, lục bình cùng với hệ động vật cò, cá phong phú đã tạo nên cho nơi này một mảng màu sắc riêng.# --> Kết quả: làng nổi, vùng rừng ngập nước, hệ sinh thái, hệ động vật.  Biết rằng kết quả là danh sách các từ đặc trưng, với từ đặc trưng là những cụm danh từ chung (không bao gồm tên riêng và danh từ riêng) nói lên các feature tại địa điểm du lịch nằm trong câu. Một câu có thể có hoặc không có từ đặc trưng nào. Thật vậy, tương tự, hãy lấy ra các từ đặc trưng từ văn bản sau cho tôi (nếu có):"
+prompt_text = "Tôi sẽ cung cấp lại ví dụ sau: #Làng nổi Tân Lập nằm sâu bên trong lòng Đồng Tháp Mười, nơi chủ yếu là vùng rừng ngập nước với hệ sinh thái mang đậm vẻ đặc trưng của Đông Nam Bộ. Tràm, sen, súng, lục bình cùng với hệ động vật cò, cá phong phú đã tạo nên cho nơi này một mảng màu sắc riêng.# --> Kết quả: Tân Lập, Đồng Tháp Mười, Đông Nam Bộ. Biết rằng kết quả là các tên riêng chỉ vị trí địa lý, con người có chứa trong văn bản (ví dụ: Hồ Chí Minh, Hà Nội, Hàm Nghi, Nguyên, Sông Hàn, Thuận Phước, Nam Trung Bộ, Võ Nguyên Giáp,...). Có những đoạn văn bản chưa chắc đã có kết quả hợp lệ nào. Thật vậy, tương tự, hãy lấy ra kết quả theo yêu cầu từ văn bản sau cho tôi (nếu có):"
 for item in data_list:
 
     content_text = item
@@ -55,7 +55,7 @@ for item in data_list:
     # Chờ cho đến khi nút button xuất hiện và trở thành khả năng tương tác
     # Click vào nút button
     send_button.click()
-    random_wait_time = random.randint(55, 70)
+    random_wait_time = random.randint(45, 60)
     time.sleep(random_wait_time)
 
 

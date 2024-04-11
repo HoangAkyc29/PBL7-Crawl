@@ -133,23 +133,73 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
             print("Đã xảy ra lỗi khi tìm các phần tử span:", e)
 
         try:
-            # Lấy tất cả các thẻ trên trang web
-            text_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a, span, div, p, li, h1, h2, h3, h4, h5, h6")))
+            
+                        # Lấy tất cả các thẻ a trên trang web
+            link_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a")))
+            # Lấy tất cả các thẻ span trên trang web
+            span_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "span")))
+            # Lấy tất cả các thẻ div trên trang web
+            div_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div")))
+            # Lấy tất cả các thẻ p trên trang web
+            paragraph_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "p")))
+            # Lấy tất cả các thẻ li trên trang web
+            list_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "li")))
+            # Lấy tất cả các thẻ h1 trên trang web
+            header_elements = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "h1")))
 
             # Danh sách để lưu trữ văn bản từ các thẻ
             text_list = []
 
-            # Lặp qua từng phần tử và lấy văn bản
-            for element in text_elements:
-                try:
-                    text = element.text
-                    if text:
-                        text_list.append(text)
-                except Exception as e:
-                    print("Đã xảy ra lỗi khi lấy văn bản từ phần tử:", e)
+            text_list.append("-------------------------------------------LINK ELEMENTS----------------------------------------------------------")
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ a
+            for element in link_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+            
+            text_list.append("-------------------------------------------SPAN ELEMENTS-------------------------------------------")
+
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ span
+            for element in span_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+            
+            text_list.append("-------------------------------------------DIV ELEMENTS----------------------------------------------------------")
+
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ div
+            for element in div_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+            
+            text_list.append("-------------------------------------------PARAGRAPH ELEMENTS----------------------------------------------------------")
+
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ p
+            for element in paragraph_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+
+            text_list.append("---------------------------------------------------------LIST ELEMENTS----------------------------------------------------------")
+
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ li
+            for element in list_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+            
+            text_list.append("----------------------------------------------------------HEADER ELEMENTS----------------------------------------------------------")
+
+            # Lặp qua từng phần tử và lấy văn bản từ các thẻ h1
+            for element in header_elements:
+                text = element.text
+                if text:
+                    text_list.append(text)
+                
 
         except Exception as e:
-            print("Đã xảy ra lỗi khi tìm các phần tử trên trang web:", e)
+            print("Đã xảy ra lỗi khi lấy văn bản từ phần tử:", e)
         
         driver.quit()
         place_string = extract_place_text(url)
@@ -176,7 +226,7 @@ def scrape_tourist_destination_data(url, url_source_name, retry = False, proxy =
 
 def crawl_all():
     threads = []
-    for i in range(1,5):
+    for i in range(1,2):
         file_path = f"all_urls_{i}.txt"
         delete_unneed_lines(file_path)
         url = get_first_url(file_path)
