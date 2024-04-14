@@ -25,7 +25,7 @@ def extract_column_data(csv_path, column_index):
     return column_data
 
 # Thay đổi 'file.csv' thành đường dẫn của file CSV thực tế của bạn
-csv_file = r"E:\PBL-7\GPT-crawler\raw_data_copy.csv"
+csv_file = r"E:\PBL-7\GPT-crawler\raw_data_copy_2.csv"
 column_index = 1  # Cột thứ hai (0-indexed)
 
 data_list = extract_column_data(csv_file, column_index)
@@ -36,15 +36,20 @@ data_list = extract_column_data(csv_file, column_index)
 opt =  webdriver.ChromeOptions()
 opt.add_experimental_option("debuggerAddress","localhost:8989")
 driver = webdriver.Chrome(options = opt)
-driver.get("https://chat.openai.com/c/a3154972-ec02-4faa-915d-1edfb8405e34")
-time.sleep(50)
-evaluate_text = "cũng tạm ổn, ok. "
+driver.get("https://chat.openai.com/c/42a50c03-8db5-4790-85f8-5367d934d6a2")
+# driver.get("https://chat.openai.com/c/a3154972-ec02-4faa-915d-1edfb8405e34")
+# driver.get("https://chat.openai.com/c/e395d708-ba29-4761-a281-806de7630e10")
+# driver.get("https://chat.openai.com/c/9ffa57ba-91db-4f5b-8d9f-6e0b036d78ae")
+time.sleep(15)
+evaluate_text = "Rồi, câu tiếp theo. "
 
-prompt_text = "Tôi sẽ cung cấp lại ví dụ sau: #Làng nổi Tân Lập nằm sâu bên trong lòng Đồng Tháp Mười, nơi chủ yếu là vùng rừng ngập nước với hệ sinh thái mang đậm vẻ đặc trưng của Đông Nam Bộ. Tràm, sen, súng, lục bình cùng với hệ động vật cò, cá phong phú đã tạo nên cho nơi này một mảng màu sắc riêng.# --> Kết quả: Tân Lập, Đồng Tháp Mười, Đông Nam Bộ. Biết rằng kết quả là các tên riêng chỉ vị trí địa lý, con người có chứa trong văn bản (ví dụ: Hồ Chí Minh, Hà Nội, Hàm Nghi, Nguyên, Sông Hàn, Thuận Phước, Nam Trung Bộ, Võ Nguyên Giáp,...). Có những đoạn văn bản chưa chắc đã có kết quả hợp lệ nào. Thật vậy, tương tự, hãy lấy ra kết quả theo yêu cầu từ văn bản sau cho tôi (nếu có):"
+prompt_text = "Tên riêng là danh từ chỉ định một cá thể hoặc đối tượng cụ thể, phân biệt nó với các cá thể hoặc đối tượng khác cùng loại. Tên riêng thường được sử dụng để gọi hoặc để xác định danh tính của một ai đó hoặc một cái gì đó. Đồng thời, tên riêng thường được viết hoa chữ cái đầu tiên trong tiếng Việt. Thật vậy,  hãy lấy ra kết quả chỉ bao gồm CÁC TÊN RIÊNG của con người, địa lý hoặc dịa danh nằm trong văn bản sau (không phải tên riêng thì chắc chắn không phải kết quả): "
+tail_text = " (một câu hoàn toàn có thể không có kết quả hợp lệ nào)"
 for item in data_list:
 
     content_text = item
-    end_message = evaluate_text + prompt_text  + content_text
+    
+    end_message = evaluate_text + prompt_text  + content_text + tail_text
     print(end_message)
     textarea = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
     # Nhập nội dung vào thẻ textarea

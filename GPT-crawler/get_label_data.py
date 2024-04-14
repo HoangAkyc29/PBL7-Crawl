@@ -37,7 +37,7 @@ import os
 opt =  webdriver.ChromeOptions()
 opt.add_experimental_option("debuggerAddress","localhost:8989")
 driver = webdriver.Chrome(options = opt)
-driver.get("https://chat.openai.com/share/910736d5-26c5-42c2-8bfd-7cc5aaa357aa")
+driver.get("https://chat.openai.com/share/23106837-f53b-4c7f-b6ca-d57ae9e6ec91")
 random_wait_time = random.randint(25, 30)
 time.sleep(random_wait_time)
 # Xác định locator của các thẻ div
