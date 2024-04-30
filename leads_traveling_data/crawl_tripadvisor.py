@@ -245,5 +245,5 @@ while True:
         # spam_trying += 1
         crawl_all()
     except Exception as e:
-        continue
+        break
 # scrape_tourist_destination_data("https://www.tripadvisor.com/Hotels-g298085-zff7-Da_Nang-Hotels.html", "all_urls.txt")

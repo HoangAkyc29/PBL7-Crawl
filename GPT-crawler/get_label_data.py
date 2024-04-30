@@ -26,7 +26,7 @@ import os
 #     return column_data
 
 # Thay đổi 'file.csv' thành đường dẫn của file CSV thực tế của bạn
-# csv_file = r"E:\PBL-7\GPT-crawler\raw_data.csv"
+# csv_file = r"E:\PBL-7\GPT-crawler\raw_data.csv"   
 # column_index = 1  # Cột thứ hai (0-indexed)
 
 # data_list = extract_column_data(csv_file, column_index)
@@ -37,7 +37,7 @@ import os
 opt =  webdriver.ChromeOptions()
 opt.add_experimental_option("debuggerAddress","localhost:8989")
 driver = webdriver.Chrome(options = opt)
-driver.get("https://chat.openai.com/share/23106837-f53b-4c7f-b6ca-d57ae9e6ec91")
+driver.get("https://chat.openai.com/share/051824b8-966c-41dd-9ac4-b6fc4fe06d11")
 random_wait_time = random.randint(25, 30)
 time.sleep(random_wait_time)
 # Xác định locator của các thẻ div
@@ -53,6 +53,6 @@ for div in divs:
   # Lấy dữ liệu text từ thẻ div
   data_list.append(div.text)
 
-save_to_file(data_list, "textdata.txt")
+save_to_file(data_list, "textdata_3.txt")
 
 # print(result_list)

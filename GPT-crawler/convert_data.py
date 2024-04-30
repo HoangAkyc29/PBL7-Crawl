@@ -29,4 +29,4 @@ def convert_text_to_csv(input_file, output_file):
             writer.writerow(conversation)
 
 # Sử dụng hàm để chuyển đổi từ file text sang file CSV
-convert_text_to_csv("conversation.txt", "conversation.csv")
+convert_text_to_csv("textdata_3.txt", "conversation3.csv")

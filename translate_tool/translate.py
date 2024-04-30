@@ -42,8 +42,8 @@ def translate_text(text, translate_from, translate_to, auth_key=None):
             return False, f"{TRANSLATION_ERROR}: {response.text}"
 
 def main():
-    text_to_translate = "Hello, how are you ?"
-    translate_from = "en"
+    text_to_translate = "The kindness of people here is big"
+    translate_from = "auto"
     translate_to = "vi"
     auth_key = None  # Thay thế bằng khóa API của bạn nếu có
     success, translated_text = translate_text(text_to_translate, translate_from, translate_to, auth_key)

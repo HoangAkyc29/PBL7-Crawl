@@ -7,7 +7,7 @@ import time
 import csv
 import random
 import os
-
+import re
 def extract_column_data(csv_path, column_index):
     column_data = []
     if os.path.exists(csv_path):
@@ -65,8 +65,8 @@ def preprocess_text(input_file, output_file):
         f.write(text)
 
 # Thay đổi 'file.csv' thành đường dẫn của file CSV thực tế của bạn
-txt_file = r"E:\PBL-7\GPT-crawler\split_output.txt"
-column_index = 1  # Cột thứ hai (0-indexed)
+txt_file = r"E:\PBL-7\GPT-crawler\reviews_data.txt"
+# column_index = 1  # Cột thứ hai (0-indexed)
 
 # preprocess_text(txt_file, txt_file)
 
@@ -79,7 +79,7 @@ data_list = get_lines_from_file(txt_file)
 opt =  webdriver.ChromeOptions()
 opt.add_experimental_option("debuggerAddress","localhost:8989")
 driver = webdriver.Chrome(options = opt)
-driver.get("https://chat.openai.com/c/54e8bb24-2bd0-407c-8d54-0af1a8ade74c")
+driver.get("https://chat.openai.com/c/609f3a87-3a0a-4381-af93-ce9e6d762ce5")
 # driver.get("https://chat.openai.com/c/a3154972-ec02-4faa-915d-1edfb8405e34")
 # driver.get("https://chat.openai.com/c/e395d708-ba29-4761-a281-806de7630e10")
 # driver.get("https://chat.openai.com/c/9ffa57ba-91db-4f5b-8d9f-6e0b036d78ae")
@@ -87,26 +87,30 @@ time.sleep(15)
 
 evaluate_text = "Khá ổn, ok. "
 
-prompt_text = "Tôi sẽ nêu lại ví dụ câu sau: Honestly, it was the best massage ever! The therapists were just so good and Trieng was very helpful with the booking experience. --> Kết quả: best massage, good therapists, helpful booking experience. Kết quả là những cụm từ tóm tắt các ý của câu. Thật vậy, hãy tóm tắt câu sau: "
+prompt_text = " Tôi sẽ cung cấp ví dụ sau: Chỉ cách hồ Đà Lạt 15 phút đi xe máy, ngôi chùa này sẽ mê hoặc trí tưởng tượng của bạn hàng giờ nếu bạn dành thời gian khám phá tinh hoa của ngôi chùa và các yếu tố xung quanh, đặc biệt là đồ nội thất, đồ thủ công, cửa hàng đá liền kề và tu viện Phật giáo trên ngọn đồi phía trên. --> Kết quả: hồ, ngôi chùa, đồ nội thất, đồ thủ công, cửa hàng đá, tu viện Phật giáo.  Biết rằng kết quả là danh sách những danh từ hoặc cụm danh từ chung chỉ các thứ, các chi tiết nó về một thứ gì đó tại điểm du lịch trong câu (không được bao gồm danh từ riêng hoặc tên riêng). Một câu có thể có hoặc không có từ đặc trưng nào. Thật vậy, tương tự, hãy lấy ra kết quả  từ văn bản sau cho tôi (nếu có): "
 tail_text = ""
 for item in data_list:
-
-    content_text = item
+    try:
+        content_text = item
+        content_text = re.sub(r"\n$", "", content_text)
+        
+        end_message = evaluate_text + prompt_text  + content_text + tail_text
+        print(end_message)
+        textarea = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
+        # Nhập nội dung vào thẻ textarea
+        textarea.clear()
+        textarea.send_keys(end_message)
+        random_wait_time = random.randint(6, 10)
+        time.sleep(random_wait_time)
+        send_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='send-button']")))
+        # Chờ cho đến khi nút button xuất hiện và trở thành khả năng tương tác
+        # Click vào nút button
+        send_button.click()
+        random_wait_time = random.randint(40, 50)
+        time.sleep(random_wait_time)
     
-    end_message = evaluate_text + prompt_text  + content_text + tail_text
-    print(end_message)
-    textarea = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
-    # Nhập nội dung vào thẻ textarea
-    textarea.send_keys(end_message)
-    random_wait_time = random.randint(3, 5)
-    time.sleep(random_wait_time)
-    send_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='send-button']")))
-    # Chờ cho đến khi nút button xuất hiện và trở thành khả năng tương tác
-    # Click vào nút button
-    send_button.click()
-    random_wait_time = random.randint(40, 50)
-    time.sleep(random_wait_time)
-
+    except:
+        continue
     # bonus_message = "ngắn gọn hơn nếu có thể."
     # textarea = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
     # # Nhập nội dung vào thẻ textarea
@@ -123,4 +127,4 @@ for item in data_list:
 
 time.sleep(10)
 
-print(result_list)
+# print(result_list)
